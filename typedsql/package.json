@@ -1,0 +1,31 @@
+{
+  "name": "typedsql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'tsx' app.ts",
+    "lint": "eslint . -c eslint.config.js --report-unused-disable-directives --max-warnings 0",
+    "format": "npx prettier . --check",
+    "format:fix": "npx prettier --write .",
+    "prisma:init": "prisma init --datasource-provider mysql",
+    "db:migrate": "prisma migrate dev --name init",
+    "generate": "prisma generate --sql"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "eslint": "^9.12.0",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.3.3",
+    "prisma": "^5.20.0"
+  }
+}
