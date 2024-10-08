@@ -6,12 +6,32 @@ WHERE id = ? LIMIT 1;
 SELECT * FROM User
 ORDER BY name;
 
--- name: CreateAuthor :execresult
-INSERT INTO User (
-  name, bio
-) VALUES (
-  ?, ?
+-- name: CreateAuthor :exec
+INSERT INTO User 
+(
+  id,
+  userId,
+  name, 
+  birthday, 
+  email, 
+  password,
+  sex
+)
+VALUES 
+(
+  ?,?, ?, ?, ?, ?, ?
 );
+
+-- name: UpdateAuthor :exec
+UPDATE User
+SET 
+  userId = ?,
+  name = ?, 
+  birthday = ?, 
+  email = ?,
+  password = ?,
+  sex = ?
+WHERE id = ?;
 
 -- name: DeleteAuthor :exec
 DELETE FROM User

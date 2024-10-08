@@ -4,8 +4,10 @@ import (
 	"context"
 	"database/sql"
 	"os"
+	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/google/uuid"
 	generated "github.com/o-ga09/orm-sample/generated"
 )
 
@@ -18,22 +20,32 @@ func main() {
 	}
 
 	query := generated.New(db)
-	status, err := query.CreateAuthor(ctx, generated.CreateAuthorParams{
-		Name: "Alice",
-		Bio:  sql.NullString{String: "Alice's bio", Valid: true},
+	newId := uuid.New().String()
+	newUserId := strings.Replace(uuid.New().String(), "-", "", -1)
+	newName := "test_" + newUserId
+	err = query.CreateAuthor(ctx, generated.CreateAuthorParams{
+		ID:       newId,
+		Userid:   sql.NullString{String: newUserId, Valid: true},
+		Name:     sql.NullString{String: newName, Valid: true},
+		Birthday: sql.NullString{String: "2020-01-01", Valid: true},
+		Email:    sql.NullString{String: "example@example.com", Valid: true},
+		Password: sql.NullString{String: "password", Valid: true},
+		Sex:      sql.NullString{String: "1", Valid: true},
 	})
 	if err != nil {
 		panic(err)
 	}
-	lastInsertId, err := status.LastInsertId()
-	if err != nil {
-		panic(err)
-	}
 
-	res, err := query.GetAuthor(ctx, lastInsertId)
+	res, err := query.GetAuthor(ctx, newId)
 	if err != nil {
 		panic(err)
 	}
-	println(res.Name)
-	println(res.Bio.String)
+	println(res.Name.String)
+	println(res.Email.String)
+	println(res.Password.String)
+	println(res.Userid.String)
+	println(res.Birthday.String)
+	println(res.Sex.String)
+	println(res.InsertDatetime.GoString())
+	println(res.UpdateDatetime.GoString())
 }
