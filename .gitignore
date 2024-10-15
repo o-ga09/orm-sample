@@ -3,3 +3,4 @@ typedsql/node_modules
 
 sqlc-typescript/generated
 sqlc-go/generated
+.DS_Store

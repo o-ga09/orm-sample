@@ -48,4 +48,16 @@ func main() {
 	println(res.Sex.String)
 	println(res.InsertDatetime.GoString())
 	println(res.UpdateDatetime.GoString())
+
+	r, err := query.GetMouthlyBuyerCount(ctx)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, v := range r {
+		println(v.ItemCount)
+		println(v.UserID)
+		println(v.UserName.String)
+	}
+
 }

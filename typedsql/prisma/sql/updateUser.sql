@@ -1,4 +1,4 @@
 -- update User
 UPDATE User
-SET name = ?, bio = ?
+SET name = ?
 WHERE id = ?;
